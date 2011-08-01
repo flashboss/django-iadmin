@@ -69,5 +69,32 @@ In your admin.py file ::
 
     from iadmin.utils import tabular_factory
 
+Plugins
+----
+To add the File Manager in the admin console:
+
+Add this variables at the beginning of your settings.py:
+
+	import iadmin
+	import os
+	import sys
+	HERE = os.path.dirname('__file__')
+	sys.path.insert(0, os.path.join(HERE, os.pardir) )
+	__IADMIN_ROOT = os.path.abspath(os.path.dirname(iadmin.__file__))
+	IADMIN_FILE_UPLOAD_MAX_SIZE = 2000000
+	IADMIN_FM_ROOT = os.path.join(__IADMIN_ROOT, 'tests', 'fmenv')
+	
+Add the row in the TEMPLATE_DIRS variable:
+
+    TEMPLATE_DIRS = (
+          ...
+          os.path.join(HERE, 'templates'),
+          ...
+          ...
+    )
+    
+Create the directory templates in your project and overwrite the page base_site.html so:
+
+    {% extends "iadmin/base_site.html" %}
 
 
